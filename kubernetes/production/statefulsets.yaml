@@ -1,0 +1,40 @@
+# k8s/deployment.yaml
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: swapams
+  namespace: swapams
+  labels:
+    app: django
+spec:
+  replicas: 1
+  serviceName: swapams
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django
+        image: ghcr.io/it-jonction/swap_django_ams:0.0.6
+        command: ["gunicorn"]
+        args: ["--bind", "0.0.0.0:8000", "swap.wsgi:application"]
+        ports:
+        - containerPort: 8000
+        resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+        envFrom:
+          - secretRef:
+              name: swapams--secret
+      imagePullSecrets:
+        - name: regcred
+      

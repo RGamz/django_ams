@@ -1,0 +1,92 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block title %}
+    Agent Vérification  
+{% endblock %}
+
+{% block main %}
+
+
+<main>
+    <section>
+    <h1>Overview</h1>
+
+    <section>
+        
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="main-tab-pane" role="tabpanel" aria-labelledby="main-tab" tabindex="0">
+                
+            <div class="side_by_side">
+
+                <div class="index_table">
+
+                <p> Répartition de tickets ouverts entre des admins. </p>
+
+                <div>
+                    <input class="searchInput input-group mb-3" data-table-id="sortableTable1" type="search" placeholder="Search" aria-label="Search" aria-target="sortableTable1">
+                </div>
+
+                <table class="table sortTable table-responsive" id="sortableTable1">
+                    <thead>
+                    <tr>
+                        <th scope="col">Admin</th>
+                        <th scope="col" data-type="number">Quantité de tickets ouverts: {{ openTicketCounter }}</th>
+                        <th scope="col" data-type="number">LU: {{ totalRead }} </th>
+                        <th scope="col" data-type="number">NON LU: {{ totalUnread }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for ticket in ticketsPerAdmin %}
+                        <tr>
+                            <th scope="row">{{ ticket.admin__pseudo }}</th>
+                            <td>{{ticket.open_tickets}}</td>
+                            <td>{{ticket.read_tickets}}</td>
+                            <td>{{ticket.unread_tickets}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+                
+                <div class="index_table">
+
+                <p> Quantité de TOUS les logs et messages par admin SAUF passage en lu/non-lu ou action par un autre admin. </p>
+
+                <div>
+                    <input class="searchInput input-group mb-3" data-table-id="sortableTable2" type="search" placeholder="Search" aria-label="Search" aria-target="sortableTable2">
+                </div>
+
+                <table class="table sortTable table-responsive" id="sortableTable2">
+                    <thead>
+                    <tr>
+                        <th scope="col">Admin</th>
+                        <th scope="col" data-type="number">Messages: {{ messages_sum }}</th>
+                        <th scope="col" data-type="number">Logs: {{ logs_sum }}</th>
+                        <th scope="col" data-type="number">Total: {{ total_actions }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for admin in LogsAndMessagesPerAdmin %}
+                        <tr>
+                        <th scope="row">{{ admin.admin }}</th>
+                        <td>{{ admin.messages }}</td>
+                        <td>{{ admin.logs }}</td>
+                        <td>{{ admin.total_actions }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            </div>
+        </div>
+    
+    </section>
+
+    </section>
+</main>
+
+{% endblock %}
+

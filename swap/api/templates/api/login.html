@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    Login  
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block main %}
+
+<section class="login">
+  <h1>Welcome to SWAP AMS!</h1>
+  
+  <form class="login_form" action="" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+
+    <div class="mb-3">
+      <label for="id_username" class="form-label">Login</label>
+      <input type="text" name="username" class="form-control" id="id_username" placeholder="Enter login" required>
+    </div>
+    <div class="mb-3">
+      <label for="id_password" class="form-label">Password</label>
+      <input type="password" name="password" class="form-control" id="id_password" placeholder="Enter password" required>
+    </div>
+
+    <!-- Error handling using Django's form object -->
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    Shower cabin claims  
+{% endblock %}
+
+{% block main %}
+
+<section>
+    <h1>Shower cabin claims</h1>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="openTicketList-tab" data-bs-toggle="tab" data-bs-target="#openTicketList-tab-pane" type="button" role="tab" aria-controls="openTicketList-tab-pane" aria-selected="true">Tous les tickets: <span class="bold"> {{ openTicketCounter }} </span></button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="openTicketList-tab-pane" role="tabpanel" aria-labelledby="openTicketList-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Статусы ниже надо вставить в сообщение в тикете и убрать видимость этого сообщения для всех. Без этого статус отображаться не будет.</p>
+                
+            <p>1. Ждем данные / 2. Нет запчастей / 3. Ждем поставки зч / 4. Отгрузить ЗЧ / 5. Вызвать мастера / 6. ЗЧ отгружены / 7. ЗЧ отправлены / 8. ЗЧ+, созвон с клиентом / 9. ЗЧ+, вызвать мастера / 10. Ожидает мастера / 11. Выписать Акт НРП</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="openTicketListSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="openTicketListSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="openTicketListSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Creation date</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Тип</th>
+                        <th class="text-end">Запрос</th>
+                        <th class="text-end">Статус</th>
+                        <th class="text-end" data-type="number">Прошло с создания</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in openTicketList %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.creation_date }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe == 'Сервис SWAP' %}
+                                Магазин
+                            {% else %}
+                                Клиент
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.first_message_text }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.last_invisible_message_text }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

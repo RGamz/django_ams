@@ -1,0 +1,243 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    Tickets simples  
+{% endblock %}
+
+{% block main %}
+
+<section>
+    <h1>Tickets simples</h1>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="demandeNotice-tab" data-bs-toggle="tab" data-bs-target="#demandeNotice-tab-pane" type="button" role="tab" aria-controls="demandeNotice-tab-pane" aria-selected="true">Demande de notice: <span class="bold"> {{ demandeNoticeCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="renseignementTechnique-tab" data-bs-toggle="tab" data-bs-target="#renseignementTechnique-tab-pane" type="button" role="tab" aria-controls="renseignementTechnique-tab-pane" aria-selected="true">Renseignement technique: <span class="bold"> {{ renseignementTechniqueCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="demandeInfosMachine-tab" data-bs-toggle="tab" data-bs-target="#demandeInfosMachine-tab-pane" type="button" role="tab" aria-controls="demandeInfosMachine-tab-pane" aria-selected="true">Demande d'information: <span class="bold"> {{ demandeInfosMachineCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="moderationEnregistrement-tab" data-bs-toggle="tab" data-bs-target="#moderationEnregistrement-tab-pane" type="button" role="tab" aria-controls="moderationEnregistrement-tab-pane" aria-selected="true">Moderation d'enregistrement: <span class="bold"> {{ moderationEnregistrementCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="moderationEnregistrementBCM-tab" data-bs-toggle="tab" data-bs-target="#moderationEnregistrementBCM-tab-pane" type="button" role="tab" aria-controls="moderationEnregistrementBCM-tab-pane" aria-selected="true">Moderation d'enregistrement BCM: <span class="bold"> {{ moderationEnregistrementBCMCounter }} </span></button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="demandeNotice-tab-pane" role="tabpanel" aria-labelledby="demandeNotice-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Demandes de notice</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="demandeNoticeSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="demandeNoticeSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="demandeNoticeSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Admin</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in demandeNotice %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.admin.pseudo}}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="renseignementTechnique-tab-pane" role="tabpanel" aria-labelledby="renseignementTechnique-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Renseignement technique sur une machine</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="renseignementTechniqueSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="renseignementTechniqueSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="renseignementTechniqueSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Admin</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in renseignementTechnique %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.admin.pseudo}}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div> 
+        <div class="tab-pane fade show" id="demandeInfosMachine-tab-pane" role="tabpanel" aria-labelledby="demandeInfosMachine-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Demande d'informations sur une machine</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="demandeInfosMachineSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="demandeInfosMachineSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="demandeInfosMachineSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Admin</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in demandeInfosMachine %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.admin.pseudo}}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>  
+        <div class="tab-pane fade show" id="moderationEnregistrement-tab-pane" role="tabpanel" aria-labelledby="moderationEnregistrement-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Modération d'enregistrement d'une machine</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="moderationEnregistrementSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="moderationEnregistrementSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="moderationEnregistrementSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Admin</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in moderationEnregistrement %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.admin.pseudo}}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>  
+        <div class="tab-pane fade show" id="moderationEnregistrementBCM-tab-pane" role="tabpanel" aria-labelledby="moderationEnregistrementBCM-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Modération d'enregistrement d'une machine BCM</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="moderationEnregistrementBCMSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="moderationEnregistrementBCMSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="moderationEnregistrementBCMSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Admin</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in moderationEnregistrementBCM %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.admin.pseudo}}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>   
+    </div>
+
+</section>
+
+{% endblock %}

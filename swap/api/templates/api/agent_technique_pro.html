@@ -1,0 +1,1580 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    Agent Technique Pro
+{% endblock %}
+
+{% block main %}
+
+<section>
+
+    <h1>Agent Technique Pro</h1>
+
+    <div class="modals">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-outline-primary button_tuto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Kingfisher
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tutoriel</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <embed
+                        src="{% static 'api/tutorials/tech_KF.pdf' %}"
+                        type="application/pdf"
+                        frameBorder="0"
+                        scrolling="auto"
+                        height="100%"
+                        width="100%"
+                    ></embed>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="riderTickets-tab" data-bs-toggle="tab" data-bs-target="#riderTickets-tab-pane" type="button" role="tab" aria-controls="riderTickets-tab-pane" aria-selected="false">Riders et tracteurs: <span class="bold">{{ riderTicketsCounter }}</span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="feiderTickets-tab" data-bs-toggle="tab" data-bs-target="#feiderTickets-tab-pane" type="button" role="tab" aria-controls="feiderTickets-tab-pane" aria-selected="true">Tickets Feider: <span class="bold"> {{ feiderTicketsCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="suntekTickets-tab" data-bs-toggle="tab" data-bs-target="#suntekTickets-tab-pane" type="button" role="tab" aria-controls="suntekTickets-tab-pane" aria-selected="true">Tickets Suntek: <span class="bold"> {{ suntekTicketsCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="teractTickets-tab" data-bs-toggle="tab" data-bs-target="#teractTickets-tab-pane" type="button" role="tab" aria-controls="teractTickets-tab-pane" aria-selected="true">Tickets Teract: <span class="bold"> {{ teractTicketsCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="dayeTickets-tab" data-bs-toggle="tab" data-bs-target="#dayeTickets-tab-pane" type="button" role="tab" aria-controls="dayeTickets-tab-pane" aria-selected="true">Machines Daye: <span class="bold"> {{ dayeTicketsCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="kingfisherTickets-tab" data-bs-toggle="tab" data-bs-target="#kingfisherTickets-tab-pane" type="button" role="tab" aria-controls="kingfisherTickets-tab-pane" aria-selected="true">Tickets Kingfisher: <span class="bold"> {{ kingfisherTicketsCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="generatorTickets-tab" data-bs-toggle="tab" data-bs-target="#generatorTickets-tab-pane" type="button" role="tab" aria-controls="generatorTickets-tab-pane" aria-selected="true">Groupes electro: <span class="bold"> {{ generatorTicketsCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="bronzeTickets-tab" data-bs-toggle="tab" data-bs-target="#bronzeTickets-tab-pane" type="button" role="tab" aria-controls="bronzeTickets-tab-pane" aria-selected="true">Envoi pièces (contrats Bronze): <span class="bold"> {{ bronzeTicketsCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="moderateDDG-tab" data-bs-toggle="tab" data-bs-target="#moderateDDG-tab-pane" type="button" role="tab" aria-controls="moderateDDG-tab-pane" aria-selected="true">Moderation DDG: <span class="bold"> {{ moderateDDGCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="reusedTickets-tab" data-bs-toggle="tab" data-bs-target="#reusedTickets-tab-pane" type="button" role="tab" aria-controls="reusedTickets-tab-pane" aria-selected="true">REUSED: <span class="bold"> {{ reusedTicketsCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="mtdTickets-tab" data-bs-toggle="tab" data-bs-target="#mtdTickets-tab-pane" type="button" role="tab" aria-controls="mtdTickets-tab-pane" aria-selected="true">MTD: <span class="bold"> {{ mtdTicketsCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="leroyTickets-tab" data-bs-toggle="tab" data-bs-target="#leroyTickets-tab-pane" type="button" role="tab" aria-controls="leroyTickets-tab-pane" aria-selected="true">Leroy: <span class="bold"> {{ leroyTicketsCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="kauflandTickets-tab" data-bs-toggle="tab" data-bs-target="#kauflandTickets-tab-pane" type="button" role="tab" aria-controls="kauflandTickets-tab-pane" aria-selected="true">Kaufland: <span class="bold"> {{ kauflandTicketsCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="mobilierJardinTickets-tab" data-bs-toggle="tab" data-bs-target="#mobilierJardinTickets-tab-pane" type="button" role="tab" aria-controls="mobilierJardinTickets-tab-pane" aria-selected="true">Mobilier de jardin: <span class="bold"> {{ mobilierJardinTicketsCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="closedUnread-tab" data-bs-toggle="tab" data-bs-target="#closedUnread-tab-pane" type="button" role="tab" aria-controls="closedUnread-tab-pane" aria-selected="true">Clos et non lus: <span class="bold"> {{ closedUnreadCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="simpleTickets-tab" data-bs-toggle="tab" data-bs-target="#simpleTickets-tab-pane" type="button" role="tab" aria-controls="simpleTickets-tab-pane" aria-selected="true">Tickets simples: <span class="bold"> {{ simpleTicketsCounter }} </span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="openTicketList-tab" data-bs-toggle="tab" data-bs-target="#openTicketList-tab-pane" type="button" role="tab" aria-controls="openTicketList-tab-pane" aria-selected="true">Tous les tickets: <span class="bold"> {{ openTicketCounter }} </span></button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="riderTickets-tab-pane" role="tabpanel" aria-labelledby="riderTickets-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p><span class="bold">PAS D'ANR!</span> Pour tous ces tickets il faut <span class="bold">reparer</span> ou <span class="bold">envoyer des pièces</span>.</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="riderTicketsSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="riderTicketsSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="riderTicketsSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in riderTickets %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="kingfisherTickets-tab-pane" role="tabpanel" aria-labelledby="kingfisherTickets-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Liste de tickets Kingfisher</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="kingfisherTicketsSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="kingfisherTicketsSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="kingfisherTicketsSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in kingfisherTickets %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="feiderTickets-tab-pane" role="tabpanel" aria-labelledby="feiderTickets-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Liste de tickets Feider</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="feiderTicketsSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="feiderTicketsSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="feiderTicketsSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in feiderTickets %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="suntekTickets-tab-pane" role="tabpanel" aria-labelledby="suntekTickets-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Liste de tickets Suntek</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="suntekTicketsSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="suntekTicketsSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="suntekTicketsSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in suntekTickets %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="teractTickets-tab-pane" role="tabpanel" aria-labelledby="teractTickets-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Liste de tickets Teract</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="teractTicketsSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="teractTicketsSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="teractTicketsSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in teractTickets %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="dayeTickets-tab-pane" role="tabpanel" aria-labelledby="dayeTickets-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Liste de tickets Daye</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="dayeTicketsSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="dayeTicketsSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="dayeTicketsSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in dayeTickets %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="generatorTickets-tab-pane" role="tabpanel" aria-labelledby="generatorTickets-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Liste de tickets groupes electrogenes</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="generatorTicketsSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="generatorTicketsSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="generatorTicketsSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in generatorTickets %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="bronzeTickets-tab-pane" role="tabpanel" aria-labelledby="bronzeTickets-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Pour tous ces tickets il faut envoyer des pièces, sinon - ANR.</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="bronzeTicketsSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="bronzeTicketsSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="bronzeTicketsSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in bronzeTickets %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="moderateDDG-tab-pane" role="tabpanel" aria-labelledby="moderateDDG-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Tickets en attente de moderation DDG.</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="moderateDDGSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="moderateDDGSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="moderateDDGSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in moderateDDG %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="reusedTickets-tab-pane" role="tabpanel" aria-labelledby="reusedTickets-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="reusedTicketsSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="reusedTicketsSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="reusedTicketsSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in reusedTickets %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="mtdTickets-tab-pane" role="tabpanel" aria-labelledby="mtdTickets-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="mtdTicketsSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="mtdTicketsSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="mtdTicketsSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in mtdTickets %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="leroyTickets-tab-pane" role="tabpanel" aria-labelledby="leroyTickets-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="leroyTicketsSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="leroyTicketsSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="leroyTicketsSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in leroyTickets %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="kauflandTickets-tab-pane" role="tabpanel" aria-labelledby="kauflandTickets-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="kauflandTicketsSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="kauflandTicketsSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="kauflandTicketsSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in kauflandTickets %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="mobilierJardinTickets-tab-pane" role="tabpanel" aria-labelledby="mobilierJardinTickets-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="mobilierJardinTicketsSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="mobilierJardinTicketsSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="mobilierJardinTicketsSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in mobilierJardinTickets %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="closedUnread-tab-pane" role="tabpanel" aria-labelledby="closedUnread-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Liste de tickets clos en non lus</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="closedUnreadSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="closedUnreadSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="closedUnreadSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in closedUnread %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="simpleTickets-tab-pane" role="tabpanel" aria-labelledby="simpleTickets-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Liste de tickets simples</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="simpleTicketsSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="simpleTicketsSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="simpleTicketsSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in simpleTickets %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="openTicketList-tab-pane" role="tabpanel" aria-labelledby="openTicketList-tab" tabindex="0">
+            <h3>Instructions de traitement:</h3>
+            <p>Liste de tous les tickets ouverts</p>
+            
+            <div>
+                <input class="searchInput input-group mb-3" data-table-id="openTicketListSortableTable" type="search" placeholder="Search" aria-label="Search" aria-target="openTicketListSortableTable">
+            </div>
+            
+            <table class="table table-striped sortTable" id="openTicketListSortableTable">
+                <thead>
+                    <tr>
+                        <th class="text-start" data-type="number">Ticket</th>
+                        <th class="text-end">Machine</th>
+                        <th class="text-end">Contrat</th>
+                        <th class="text-end">Magasin</th>
+                        <th class="text-end">Station</th>
+                        <th class="text-end">Lu/Non-Lu</th>
+                        <th class="text-end">Reservé par</th>
+                        <th class="text-end" data-type="number">Jours depuis resevation</th>
+                        <th class="text-end" data-type="number">Jours depuis dernière action</th>
+                        <th class="text-end" data-type="number">Jours depuis création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in openTicketList %}
+                    <tr>
+                        <td class="text-start">
+                            <a class="ticket_link" href="https://services.swap-europe.com/{{ticket.id}}" target="_blank" rel="noopener noreferrer">{{ ticket.id }}</a>
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.produit.ref }}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.ticketcontrat.contrat.nom }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.distributeur.societe %}
+                            {{ ticket.distributeur.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.station.societe %}
+                            {{ ticket.station.societe }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.read == 1 %}
+                                Oui
+                            {% elif ticket.read == 0 %}
+                                Non
+                            {% else %}
+                                Error!
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.reserved_by.pseudo %}
+                            {{ ticket.reserved_by.pseudo }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_reservation %}
+                            {{ ticket.days_since_reservation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            {{ ticket.days_since_last_action }}
+                        </td>
+                        <td class="text-end">
+                            {% if ticket.days_since_creation %}
+                            {{ ticket.days_since_creation }}
+                            {% else %}
+                                
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+    
+{% endblock %}
