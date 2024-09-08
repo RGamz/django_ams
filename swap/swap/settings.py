@@ -24,14 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%0*bpl3azm_*g!gpgbp8yg+&au6+as+b8i4a8qljo-yum7=)h&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False').strip().lower() == 'true'
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True').strip().lower() == 'true'
 
 ALLOWED_HOSTS = [
-    'ams.swap-europe.fr',
+    '127.0.0.1',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://ams.swap-europe.fr',
+    'http://127.0.0.1', 'http://localhost'
     # Add other trusted origins if necessary
 ]
 
@@ -60,7 +60,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # <---- WhiteNoise!
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
 ]
 
 ROOT_URLCONF = 'swap.urls'
@@ -90,25 +89,13 @@ WSGI_APPLICATION = 'swap.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DJANGO_DB_NAME', 'mydatabase'),
-        'USER': os.environ.get('DJANGO_DB_USER', 'user'),
-        'PASSWORD': os.environ.get('DJANGO_DB_PASSWORD', 'password'),
-        'HOST': os.environ.get('DJANGO_DB_HOST', 'db'),  # uses the service name `db` as hostname
-        'PORT': os.environ.get('DJANGO_DB_PORT', '3306'),
-    },
-    'ams': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DJANGO_DB_WRITE', 'mydatabase'), # set env variable (should be swap-ams!)
-        'USER': os.environ.get('DJANGO_DB_USER', 'user'), # set env variable (should be swap-ams!)
-        'PASSWORD': os.environ.get('DJANGO_DB_PASSWORD', 'password'), # set env variable (pass for swap-ams)
-        'HOST': os.environ.get('DJANGO_DB_HOST', 'db'),  # set env variable
-        'PORT': os.environ.get('DJANGO_DB_PORT', '3306'), # set env variable
+        'NAME': 'ams',
+        'USER': 'ams_user',
+        'PASSWORD': 'password_for_ams',
+        'HOST': '127.0.0.1',  # Change this to localhost for local MySQL
+        'PORT': '3306',
     },
 }
-
-
-DATABASE_ROUTERS = ['api.db_router.DefaultDBRouter']
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

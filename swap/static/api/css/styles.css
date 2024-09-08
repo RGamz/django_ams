@@ -1,0 +1,87 @@
+ul {
+    list-style-type: none;
+    margin-block-end:0;
+}
+
+html {
+    margin: auto;
+    width: 98%;
+}
+
+.bold {
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+
+.table>:not(caption)>*>* {
+    padding: 0 0;
+    padding-right: 20px;
+}
+
+.ticket_link:visited {
+    color:blueviolet;
+}
+
+#sum {
+    padding-top: 1%;
+    font-size: 18px;
+}
+
+th {
+    cursor: pointer;
+}
+
+.side_by_side {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+
+.index_table {
+    margin-right: auto;
+}
+
+.login {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    height: 300px; /* Set a fixed height for the login block */
+}
+
+.login_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flash {
+    padding-top: 10px;
+}
+
+.flash.success {
+    color: #198754;
+}
+
+.flash.error {
+    color: #c30;
+}
+
+.button_tuto {
+    margin-bottom: 2vh;
+}
+
+.modals {
+    margin-top: 2vh;
+}
+
+.modals_list {
+    display: flex;
+    gap: 5px;
+}
+
+.searchInput {
+    margin-top: 1vh;
+}
