@@ -16,21 +16,21 @@ EXCLUDED_LOG_TYPES = [1, 2, 5, 6, 8, 9, 12, 15, 20, 21, 22, 23, 24, 25, 26, 27,
 
 
 class Contrat(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nom = models.CharField(max_length=50)
 
     class Meta:
         db_table = 'contrats'
-        managed = False  # No migrations for this model
+        managed = True
 
 
 class TicketStatus(models.Model):
-    id = models.IntegerField(primary_key=True)
-    tr_nom = models.OneToOneField('Translate', db_column='tr_nom',on_delete=models.CASCADE,)
+    id = models.AutoField(primary_key=True)
+    tr_nom = models.OneToOneField('Translate', db_column='tr_nom',on_delete=models.CASCADE, null=True)
 
     class Meta:
         db_table = 'support_tickets_statuts'
-        managed = False  # No migrations for this model
+        managed = True
 
 
 class TicketContrat(models.Model):
@@ -39,22 +39,22 @@ class TicketContrat(models.Model):
 
     class Meta:
         db_table = 'support_tickets_contrat'
-        managed = False  # No migrations for this model
+        managed = True
 
 
 class Admin(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     pseudo = models.CharField(max_length=100)
     id_entite = models.IntegerField(null=False, unique=True)
 
     class Meta:
         db_table = 'admins'
-        managed = False  # No migrations for this model
+        managed = True
 
 
 class Produit(models.Model):
-    id = models.IntegerField(primary_key=True)
-    marque = models.ForeignKey('Marque', db_column='id_marque', on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True)
+    marque = models.ForeignKey('Marque', db_column='id_marque', on_delete=models.CASCADE, null=True)
     ref = models.CharField(max_length=50)
     poids = models.FloatField()
     code_barres = models.CharField(max_length=13)
@@ -63,11 +63,11 @@ class Produit(models.Model):
 
     class Meta:
         db_table = 'produits'
-        managed = False  # No migrations for this model
+        managed = True
 
 
 class Ticket(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     id_discussion = models.IntegerField()
     id_particulier = models.IntegerField()
     read = models.BooleanField()
@@ -81,12 +81,12 @@ class Ticket(models.Model):
 
     station = models.ForeignKey('Entity', db_column='id_station', on_delete=models.CASCADE, related_name='ticket_station', blank=True, null=True)
     distributeur = models.ForeignKey('Entity', db_column='id_distributeur', on_delete=models.CASCADE, related_name='ticket_distributor', blank=True, null=True)
-    type = models.ForeignKey('TicketType', db_column='id_type', on_delete=models.CASCADE)
-    admin = models.ForeignKey('Admin', db_column='id_admin', to_field='id_entite', related_name='support_ticket_for_admin', on_delete=models.CASCADE)
+    type = models.ForeignKey('TicketType', db_column='id_type', on_delete=models.CASCADE, null=True)
+    admin = models.ForeignKey('Admin', db_column='id_admin', to_field='id_entite', related_name='support_ticket_for_admin', on_delete=models.CASCADE, null=True)
     reserved_by = models.ForeignKey('Admin', db_column='id_admin_claim', to_field='id_entite', related_name='support_ticket_for_reserved_by', on_delete=models.CASCADE, blank=True, null=True)
-    produit = models.ForeignKey('Produit', db_column='id_machine', on_delete=models.CASCADE)
+    produit = models.ForeignKey('Produit', db_column='id_machine', on_delete=models.CASCADE, null=True)
     objects = TicketManager()
-    ticket_status = models.ForeignKey('TicketStatus', db_column='id_statut', on_delete=models.CASCADE)
+    ticket_status = models.ForeignKey('TicketStatus', db_column='id_statut', on_delete=models.CASCADE, null=True)
 
     def get_contrat(self):
         try:
@@ -160,31 +160,31 @@ class Ticket(models.Model):
     class Meta:
         db_table = 'support_tickets'
         ordering = ['id']
-        managed = False  # No migrations for this model
+        managed = True
 
 
 class TicketType(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tr_title = models.IntegerField()
 
     class Meta:
         db_table = 'support_tickets_types'
-        managed = False  # No migrations for this model
+        managed = True
 
 
 class Translate(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     fr = models.TextField()
     en = models.TextField()
     ru = models.TextField()
 
     class Meta:
         db_table = 'translate'
-        managed = False  # No migrations for this model
+        managed = True
 
 
 class Entity(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     id_fournisseur = models.IntegerField()
     id_admin = models.IntegerField()
     id_depot = models.IntegerField()
@@ -196,60 +196,60 @@ class Entity(models.Model):
 
     class Meta:
         db_table = 'entites'
-        managed = False  # No migrations for this model
+        managed = True
 
 
 class Log(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     id_ticket = models.IntegerField()
-    log_type = models.ForeignKey('LogType', db_column='id_type', on_delete=models.CASCADE)
+    log_type = models.ForeignKey('LogType', db_column='id_type', on_delete=models.CASCADE, null=True)
     ts = models.IntegerField()
 
     class Meta:
         db_table = 'support_tickets_logs'
-        managed = False  # No migrations for this model
+        managed = True
 
 
 class LogType(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tr_nom = models.IntegerField()
 
     class Meta:
         db_table = 'support_tickets_logs_types'
-        managed = False  # No migrations for this model
+        managed = True
 
 
 class ArboLink(models.Model):
-    id = models.IntegerField(primary_key=True)
-    produit = models.ForeignKey('Produit', db_column='id_produit', on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True)
+    produit = models.ForeignKey('Produit', db_column='id_produit', on_delete=models.CASCADE, null=True)
     id_arborescence = models.IntegerField()
 
     class Meta:
         db_table = 'f_produits_machine'
-        managed = False  # No migrations for this model
+        managed = True
 
 
 class Marque(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nom = models.CharField(max_length=100)
 
     class Meta:
         db_table = 'marques'
-        managed = False  # No migrations for this model
+        managed = True
 
 
 class SwapEntity(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     id_entite = models.IntegerField()
 
     class Meta:
         db_table = 'f_entites_swap'
-        managed = False  # No migrations for this model
+        managed = True
 
 
 class Discussion(models.Model):
-    id = models.IntegerField(primary_key=True)
-    id_discussion = models.ForeignKey('Ticket', db_column='id_discussion', on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True)
+    id_discussion = models.ForeignKey('Ticket', db_column='id_discussion', on_delete=models.CASCADE, null=True)
     id_entite = models.IntegerField()
     message = models.TextField()
     for_particulier = models.BooleanField()
@@ -259,4 +259,4 @@ class Discussion(models.Model):
 
     class Meta:
         db_table = 'discussions_messages'
-        managed = False  # No migrations for this model
+        managed = True
